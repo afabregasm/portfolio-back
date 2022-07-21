@@ -2,10 +2,10 @@ const mongoose = require("mongoose");
 const { Schema, model } = mongoose;
 
 const projectSchema = new Schema({
-  title: String,
+  title: { type: String, unique: true, required: true },
   description: String,
-  tasks: [{ type: Schema.Types.ObjectId, ref: "Task" }],
-  // owner will be added later on
+  url: { type: String, unique: true },
+  images: [String],
 });
 
 module.exports = model("Project", projectSchema);
