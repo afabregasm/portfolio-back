@@ -2,70 +2,41 @@ const express = require("express");
 const mongoose = require("mongoose");
 const router = express.Router();
 
-const CodingProject = require("../models/CodingProject.model");
-const DesignProject = require("../models/DesignProject.model");
+const Resume = require("../models/Resume.model");
 
-// All CODING projects
-router.get("/coding-projects", (req, res, next) => {
-  CodingProject.find()
-    .then((allProjects) => res.json(allProjects))
+router.get("/about", (req, res, next) => {
+  Resume.find()
+    .then((resume) => res.json(resume))
     .catch((err) => res.json(err));
 });
 
-// All DESIGN projects
-router.get("/design-projects", (req, res, next) => {
-  DesignProject.find()
-    .then((allProjects) => res.json(allProjects))
-    .catch((err) => res.json(err));
-});
+router.post("/about", (req, res, next) => {
+  const {
+    image,
+    fullName,
+    position,
+    contact,
+    about,
+    education,
+    experience,
+    hardSkills,
+    softSkills,
+    languages,
+  } = req.body;
 
-// Single CODING project
-router.get("/coding-projects/:projectId", (req, res, next) => {
-  const { projectId } = req.params;
-
-  if (!mongoose.Types.ObjectId.isValid(projectId)) {
-    res.status(400).json({ message: "Specified id is not valid" });
-    return;
-  }
-
-  CodingProject.findById(projectId)
-    .then((project) => res.json(project))
-    .catch((error) => res.json(error));
-});
-
-// Single DESIGN project
-router.get("/design-projects/:projectId", (req, res, next) => {
-  const { projectId } = req.params;
-
-  if (!mongoose.Types.ObjectId.isValid(projectId)) {
-    res.status(400).json({ message: "Specified id is not valid" });
-    return;
-  }
-
-  DesignProject.findById(projectId)
-    .then((project) => res.json(project))
-    .catch((error) => res.json(error));
-});
-
-// ------------------------------------------------------- //
-//                      MOD ROUTES                         //
-// ------------------------------------------------------- //
-
-// Create CODING project
-router.post("/coding-projects", (req, res, next) => {
-  const { title, description, url, image } = req.body;
-
-  CodingProject.create({ title, description, url, image })
-    .then((response) => res.json(response))
-    .catch((err) => res.json(err));
-});
-
-// Create DESIGN project
-router.post("/design-projects", (req, res, next) => {
-  const { title, description, images } = req.body;
-
-  DesignProject.create({ title, description, images })
-    .then((response) => res.json(response))
+  CodingProject.create({
+    image,
+    fullName,
+    position,
+    contact,
+    about,
+    education,
+    experience,
+    hardSkills,
+    softSkills,
+    languages,
+  })
+    .then((resume) => res.json(resume))
     .catch((err) => res.json(err));
 });
 
