@@ -4,12 +4,14 @@ const router = express.Router();
 
 const Resume = require("../models/Resume.model");
 
+// View resume
 router.get("/about", (req, res, next) => {
   Resume.find()
     .then((resume) => res.json(resume))
     .catch((err) => res.json(err));
 });
 
+// Create resume
 router.post("/about", (req, res, next) => {
   const {
     image,
@@ -24,7 +26,7 @@ router.post("/about", (req, res, next) => {
     languages,
   } = req.body;
 
-  CodingProject.create({
+  Resume.create({
     image,
     fullName,
     position,
@@ -36,69 +38,37 @@ router.post("/about", (req, res, next) => {
     softSkills,
     languages,
   })
-    .then((resume) => res.json(resume))
+    .then((newResume) => res.json(newResume))
     .catch((err) => res.json(err));
 });
 
-// Update CODING project
-router.put("/coding-projects/:projectId", (req, res, next) => {
-  const { projectId } = req.params;
+// Edit resume
+router.put("/about/:resumeId", (req, res, next) => {
+  const { resumeId } = req.params;
 
-  if (!mongoose.Types.ObjectId.isValid(projectId)) {
+  if (!mongoose.Types.ObjectId.isValid(resumeId)) {
     res.status(400).json({ message: "Specified id is not valid" });
     return;
   }
 
-  CodingProject.findByIdAndUpdate(projectId, req.body, { new: true })
-    .then((updatedProject) => res.json(updatedProject))
+  Resume.findByIdAndUpdate(resumeId, req.body, { new: true })
+    .then((updatedResume) => res.json(updatedResume))
     .catch((error) => res.json(error));
 });
 
-// Update DESIGN project
-router.put("/design-projects/:projectId", (req, res, next) => {
-  const { projectId } = req.params;
+// Delete resume
+router.delete("/about/:resumeId", (req, res, next) => {
+  const { resumeId } = req.params;
 
-  if (!mongoose.Types.ObjectId.isValid(projectId)) {
+  if (!mongoose.Types.ObjectId.isValid(resumeId)) {
     res.status(400).json({ message: "Specified id is not valid" });
     return;
   }
 
-  DesignProject.findByIdAndUpdate(projectId, req.body, { new: true })
-    .then((updatedProject) => res.json(updatedProject))
-    .catch((error) => res.json(error));
-});
-
-// Delete CODING project
-router.delete("/coding-projects/:projectId", (req, res, next) => {
-  const { projectId } = req.params;
-
-  if (!mongoose.Types.ObjectId.isValid(projectId)) {
-    res.status(400).json({ message: "Specified id is not valid" });
-    return;
-  }
-
-  CodingProject.findByIdAndRemove(projectId)
+  Resume.findByIdAndRemove(resumeId)
     .then(() =>
       res.json({
-        message: `Project with ${projectId} is removed successfully.`,
-      })
-    )
-    .catch((error) => res.json(error));
-});
-
-// Delete DESIGN project
-router.delete("/design-projects/:projectId", (req, res, next) => {
-  const { projectId } = req.params;
-
-  if (!mongoose.Types.ObjectId.isValid(projectId)) {
-    res.status(400).json({ message: "Specified id is not valid" });
-    return;
-  }
-
-  DesignProject.findByIdAndRemove(projectId)
-    .then(() =>
-      res.json({
-        message: `Project with ${projectId} is removed successfully.`,
+        message: "Resume was removed successfully.",
       })
     )
     .catch((error) => res.json(error));
