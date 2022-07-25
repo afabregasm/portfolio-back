@@ -1,7 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const router = express.Router();
-const isAdmin = require("../middleware/admin.middleware");
+
+const { isAdmin } = require("../middleware/admin.middleware");
 
 const User = require("../models/User.model");
 const Order = require("../models/Order.model");
@@ -52,10 +53,8 @@ router.get("/mod-profile", isAdmin, (req, res, next) => {
     .catch((err) => res.json(err));
 });
 
-module.exports = router;
-
-// Edit Order
-router.put("/profile/:orderId", (req, res, next) => {
+// Edit order
+router.put("/profile/:orderId", isAdmin, (req, res, next) => {
   const { orderId } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(orderId)) {
@@ -67,3 +66,5 @@ router.put("/profile/:orderId", (req, res, next) => {
     .then((updatedOrder) => res.json(updatedOrder))
     .catch((error) => res.json(error));
 });
+
+module.exports = router;
