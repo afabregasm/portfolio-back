@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const router = express.Router();
+const isAdmin = require("../middleware/admin.middleware");
 
 const CodingProject = require("../models/CodingProject.model");
 const DesignProject = require("../models/DesignProject.model");
@@ -52,7 +53,7 @@ router.get("/design-projects/:projectId", (req, res, next) => {
 // ------------------------------------------------------- //
 
 // Create CODING project
-router.post("/coding-projects", (req, res, next) => {
+router.post("/coding-projects", isAdmin, (req, res, next) => {
   const { title, description, url, image } = req.body;
 
   CodingProject.create({ title, description, url, image })
@@ -61,7 +62,7 @@ router.post("/coding-projects", (req, res, next) => {
 });
 
 // Create DESIGN project
-router.post("/design-projects", (req, res, next) => {
+router.post("/design-projects", isAdmin, (req, res, next) => {
   const { title, description, images } = req.body;
 
   DesignProject.create({ title, description, images })
@@ -70,7 +71,7 @@ router.post("/design-projects", (req, res, next) => {
 });
 
 // Update CODING project
-router.put("/coding-projects/:projectId", (req, res, next) => {
+router.put("/coding-projects/:projectId", isAdmin, (req, res, next) => {
   const { projectId } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(projectId)) {
@@ -84,7 +85,7 @@ router.put("/coding-projects/:projectId", (req, res, next) => {
 });
 
 // Update DESIGN project
-router.put("/design-projects/:projectId", (req, res, next) => {
+router.put("/design-projects/:projectId", isAdmin, (req, res, next) => {
   const { projectId } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(projectId)) {
@@ -98,7 +99,7 @@ router.put("/design-projects/:projectId", (req, res, next) => {
 });
 
 // Delete CODING project
-router.delete("/coding-projects/:projectId", (req, res, next) => {
+router.delete("/coding-projects/:projectId", isAdmin, (req, res, next) => {
   const { projectId } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(projectId)) {
@@ -116,7 +117,7 @@ router.delete("/coding-projects/:projectId", (req, res, next) => {
 });
 
 // Delete DESIGN project
-router.delete("/design-projects/:projectId", (req, res, next) => {
+router.delete("/design-projects/:projectId", isAdmin, (req, res, next) => {
   const { projectId } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(projectId)) {

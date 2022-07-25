@@ -6,6 +6,7 @@ const userSchema = new Schema({
   email: { type: String, unique: true, required: true },
   password: { type: String, required: true },
   orders: [{ type: Schema.Types.ObjectId, ref: "Order" }],
+  isAdmin: Boolean,
 });
 
 module.exports = model("User", userSchema);

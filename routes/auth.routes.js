@@ -51,6 +51,7 @@ router.post("/signup", (req, res, next) => {
         email,
         password: hashedPassword,
         orders: [],
+        isAdmin: false,
       });
     })
     .then((createdUser) => {
