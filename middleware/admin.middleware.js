@@ -1,5 +1,5 @@
 const isAdmin = (req, res, next) => {
-  if (req.session.user.isAdmin) {
+  if (req.payload.isAdmin) {
     next();
   } else {
     res.redirect("/profile");

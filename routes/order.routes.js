@@ -47,7 +47,7 @@ router.delete("/profile/:orderId", (req, res, next) => {
 // ------------------------------------------------------- //
 
 // All orders from all users
-router.get("/mod-profile", isAdmin, (req, res, next) => {
+router.get("/all-orders", isAdmin, (req, res, next) => {
   Order.find()
     .then((allOrders) => res.json(allOrders))
     .catch((err) => res.json(err));
