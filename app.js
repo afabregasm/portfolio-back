@@ -19,6 +19,7 @@ app.use("/api", projectRouter);
 const orderRouter = require("./routes/order.routes");
 app.use("/api", isAuthenticated, orderRouter);
 
+// For future development
 // const resumeRouter = require("./routes/resume.routes");
 // app.use("/api", resumeRouter);
 
