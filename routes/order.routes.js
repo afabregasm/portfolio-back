@@ -53,8 +53,16 @@ router.get("/all-orders", isAdmin, (req, res, next) => {
     .catch((err) => res.json(err));
 });
 
+// Get single order
+router.get("/all-orders/:orderId", isAdmin, (req, res, next) => {
+  const { orderId } = req.params;
+  Order.findById(orderId)
+    .then((order) => res.json(order))
+    .catch((err) => res.json(err));
+});
+
 // Edit order
-router.put("/profile/:orderId", isAdmin, (req, res, next) => {
+router.put("/all-orders/:orderId", isAdmin, (req, res, next) => {
   const { orderId } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(orderId)) {

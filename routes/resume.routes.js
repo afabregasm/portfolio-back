@@ -11,6 +11,10 @@ router.get("/about", (req, res, next) => {
     .catch((err) => res.json(err));
 });
 
+// ------------------------------------------------------- //
+//                      MOD ROUTES                         //
+// ------------------------------------------------------- //
+
 // Create resume
 router.post("/about", (req, res, next) => {
   const {
