@@ -62,9 +62,9 @@ router.get("/all-orders", isAdmin, (req, res, next) => {
 });
 
 // Get single order
-router.get("/all-orders/:id", isAdmin, (req, res, next) => {
-  const { id } = req.params;
-  Order.findById(id)
+router.get("/all-orders/:orderId", isAdmin, (req, res, next) => {
+  const { orderId } = req.params;
+  Order.findById(orderId)
     .then((order) => {
       console.log("AAAAAAABBB", order);
       res.json(order);
