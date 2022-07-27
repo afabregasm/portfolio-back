@@ -8,21 +8,18 @@ const { isAdmin } = require("../middleware/admin.middleware");
 const CodingProject = require("../models/CodingProject.model");
 const DesignProject = require("../models/DesignProject.model");
 
-// All CODING projects
 router.get("/coding-projects", (req, res, next) => {
   CodingProject.find()
     .then((allProjects) => res.json(allProjects))
     .catch((err) => res.json(err));
 });
 
-// All DESIGN projects
 router.get("/design-projects", (req, res, next) => {
   DesignProject.find()
     .then((allProjects) => res.json(allProjects))
     .catch((err) => res.json(err));
 });
 
-// Single CODING project
 router.get("/coding-projects/:projectId", (req, res, next) => {
   const { projectId } = req.params;
 
@@ -36,7 +33,6 @@ router.get("/coding-projects/:projectId", (req, res, next) => {
     .catch((error) => res.json(error));
 });
 
-// Single DESIGN project
 router.get("/design-projects/:projectId", (req, res, next) => {
   const { projectId } = req.params;
 
@@ -50,11 +46,6 @@ router.get("/design-projects/:projectId", (req, res, next) => {
     .catch((error) => res.json(error));
 });
 
-// ------------------------------------------------------- //
-//                      MOD ROUTES                         //
-// ------------------------------------------------------- //
-
-// Create CODING project
 router.post("/coding-projects", isAuthenticated, isAdmin, (req, res, next) => {
   const { title, description, url, image } = req.body;
 
@@ -63,7 +54,6 @@ router.post("/coding-projects", isAuthenticated, isAdmin, (req, res, next) => {
     .catch((err) => res.json(err));
 });
 
-// Create DESIGN project
 router.post("/design-projects", isAuthenticated, isAdmin, (req, res, next) => {
   const { title, description, images } = req.body;
 
@@ -72,7 +62,6 @@ router.post("/design-projects", isAuthenticated, isAdmin, (req, res, next) => {
     .catch((err) => res.json(err));
 });
 
-// Update CODING project
 router.put(
   "/coding-projects/:projectId",
   isAuthenticated,
@@ -91,7 +80,6 @@ router.put(
   }
 );
 
-// Update DESIGN project
 router.put(
   "/design-projects/:projectId",
   isAuthenticated,
@@ -110,7 +98,6 @@ router.put(
   }
 );
 
-// Delete CODING project
 router.delete(
   "/coding-projects/:projectId",
   isAuthenticated,
@@ -133,7 +120,6 @@ router.delete(
   }
 );
 
-// Delete DESIGN project
 router.delete(
   "/design-projects/:projectId",
   isAuthenticated,
