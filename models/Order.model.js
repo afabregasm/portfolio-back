@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const { Schema, model } = mongoose;
 
 const orderSchema = new Schema({
-  userId: String,
   title: { type: String, required: true },
   description: { type: String, required: true },
   modComment: String,

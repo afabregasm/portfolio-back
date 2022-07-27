@@ -10,17 +10,25 @@ const Order = require("../models/Order.model");
 // All orders
 router.get("/profile", (req, res, next) => {
   const user = req.payload._id;
-  User.find({ _id: user })
+  User.findById(user)
+    .populate("orders")
     .then((thisUser) => res.json(thisUser))
     .catch((err) => res.json(err));
 });
 
 // Create order
 router.post("/profile", (req, res, next) => {
-  const { userId, title, description, reference } = req.body;
+  const { title, description, reference } = req.body;
+  const user = req.payload._id;
 
-  Order.create({ userId, title, description, reference })
-    .then((response) => res.json(response))
+  Order.create({ title, description, reference })
+    .then((response) => {
+      User.findByIdAndUpdate(user, { $push: { orders: response._id } })
+        .then(() => {
+          res.status(200).json("Usuario actualizado.");
+        })
+        .catch((err) => res.json(err));
+    })
     .catch((err) => res.json(err));
 });
 
@@ -54,15 +62,18 @@ router.get("/all-orders", isAdmin, (req, res, next) => {
 });
 
 // Get single order
-router.get("/all-orders/:orderId", isAdmin, (req, res, next) => {
-  const { orderId } = req.params;
-  Order.findById(orderId)
-    .then((order) => res.json(order))
+router.get("/all-orders/:id", isAdmin, (req, res, next) => {
+  const { id } = req.params;
+  Order.findById(id)
+    .then((order) => {
+      console.log("AAAAAAABBB", order);
+      res.json(order);
+    })
     .catch((err) => res.json(err));
 });
 
 // Edit order
-router.put("/all-orders/:orderId", isAdmin, (req, res, next) => {
+router.patch("/all-orders/:orderId", isAdmin, (req, res, next) => {
   const { orderId } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(orderId)) {
