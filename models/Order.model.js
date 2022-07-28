@@ -7,8 +7,8 @@ const orderSchema = new Schema({
   modComment: String,
   status: {
     type: String,
-    enum: ["approved", "standby", "denied"],
-    default: "standby",
+    enum: ["Aprobado", "Pendiente", "Denegado"],
+    default: "Pendiente",
   },
 });
 
