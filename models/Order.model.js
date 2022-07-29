@@ -4,7 +4,10 @@ const { Schema, model } = mongoose;
 const orderSchema = new Schema({
   title: { type: String, required: true },
   description: { type: String, required: true },
-  modComment: String,
+  modComment: {
+    type: String,
+    default: "Pendiente",
+  },
   status: {
     type: String,
     enum: ["Aprobado", "Pendiente", "Denegado"],
