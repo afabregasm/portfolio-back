@@ -1,6 +1,5 @@
 # portfolio-back
-Developed as the final project of my web programming bootcamp at Ironhack Barcelona.
-It's a MERN Stack application, check the frontend repository [here](https://github.com/afabregasm/portfolio-front).
+Developed as the final project of my web development bootcamp at Ironhack Barcelona. It's a MERN Stack application, check the frontend repository [here](https://github.com/afabregasm/portfolio-front).
 
 ## About
 Hi! My name is Andrea. I'm a designer and a web developer. This project constitutes my own portfolio, a platform that makes it easier for me to promote my work to the public and at the same time makes it easier for users interested in my services to place an order or contact directly with me.  
@@ -8,8 +7,7 @@ Hi! My name is Andrea. I'm a designer and a web developer. This project constitu
 ![Project Image](https://i.imgur.com/6k3J5gW.png "Project Image")
 
 ## Deployment
-You can check the app fully deployed [here](https://afabregasm.herokuapp.com/).
-If you wish to view the API deployment instead, check [here](https://afabregasm-back.herokuapp.com/api/).
+You can check the app fully deployed [here](https://afabregasm.herokuapp.com/). If you wish to view the API deployment instead, check [here](https://afabregasm-back.herokuapp.com/api/).
 
 ## Work structure
 I developed this project alone and used [Trello](https://trello.com/home) to organize my workflow.
@@ -74,7 +72,6 @@ const orderSchema = new Schema({
 | :---: | ------------------------------------------------------------------------------------------------------------------------------------------ | -------------- |
 | User  | Can login/logout. Can read all the projects. Can create a new order.                                                                       | isAdmin: false |
 | Admin | Can login/logout. Can read, edit or delete all the projects. Can create a new project. Can read all user's orders and edit or delete them. | isAdmin: true  |
-
 
 ## API Reference
 | Method | Endpoint                    | Require                                             | Response (200)                                                        | Action                                                                    |
